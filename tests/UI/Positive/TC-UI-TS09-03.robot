@@ -15,6 +15,8 @@ User Account Registration
     [Tags]    @ui @regression
     Login Or Register User
     Sleep    2s
+    Permanent Log In
+    Sleep    2s
     Diff Fund Transfer Page    10000
     Sleep    2s
     Log To Console    Fund transfer successful to a different account

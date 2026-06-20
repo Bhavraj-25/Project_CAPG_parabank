@@ -17,6 +17,8 @@ User Account Registration
 #    Log In To Para Bank
     Login Or Register User
     Sleep    2s
+    Permanent Log In
+    Sleep    2s
     Open New Savings Account
     Sleep    2s
     Fund Transfer Page    100

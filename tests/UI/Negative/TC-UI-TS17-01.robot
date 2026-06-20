@@ -14,6 +14,7 @@ User Account Registration
     [Documentation]    Registering user account to the site
     [Tags]    @ui @regression @negative @boundary
     Login Or Register User
+    Permanent Log In
     Max Min Fund Transfer Page    999999999999999
     Sleep    1s
     Log To Console    Max fund transfer successful to a different account
