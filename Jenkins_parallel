@@ -74,7 +74,7 @@ pipeline {
                         exit /b 1
                     )
 
-                    set "VENV_PY=%WORKSPACE%\%VENV_DIR%\Scripts\python.exe"
+                    set "VENV_PY=%WORKSPACE%\\%VENV_DIR%\\Scripts\\python.exe"
 
                     if exist "%VENV_DIR%" (
                         echo Virtual environment folder found. Verifying integrity...
