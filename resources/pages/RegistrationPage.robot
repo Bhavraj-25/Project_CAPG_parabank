@@ -4,8 +4,8 @@ Resource    ../../locators/registration_locator.robot
 
 *** Variables ***
 ${acct_ID}    None
-${First}    None
-${Last}    None
+${First}    CQB
+${Last}     CBQ
 
 *** Keywords ***
 Register
