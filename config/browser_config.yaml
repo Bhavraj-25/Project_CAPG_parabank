@@ -1,0 +1,14 @@
+qa:
+  baseurl:  'https://parabank.parasoft.com'
+  ph_no: ''
+  user_email: ''
+  user_password: ''
+  source_city: ''
+  dest_city: ''
+dev:
+  baseurl: 'https://parabank.parasoft.com'
+  ph_no: ''
+  user_email: ''
+  user_password: ''
+  source_city: ''
+  dest_city: ''
