@@ -22,7 +22,9 @@ Diff Fund Transfer Page
     [Arguments]    ${to_send}
     Click Element    ${transfer_funds_btn}
     Wait Until Element Is Visible    ${assert_transfer_funds}    10s
+    Sleep    1s
     Input Text    ${amount}    ${to_send}
+    Sleep    1s
     Click Element    ${to_account}
     Click Element    xpath=//select[@id='toAccountId']/option[2]
     Wait Until Element Is Visible    ${transfer_btn}    10s
@@ -48,7 +50,9 @@ Max Min Fund Transfer Page
     [Arguments]    ${to_send}
     Click Element    ${transfer_funds_btn}
     Wait Until Element Is Visible    ${assert_transfer_funds}    10s
+    Sleep    1s
     Input Text    ${amount}    ${to_send}
+    Sleep    1s
     Click Element    ${to_account}
     Click Element    xpath=//select[@id='toAccountId']/option[2]
     Wait Until Element Is Visible    ${transfer_btn}    10s

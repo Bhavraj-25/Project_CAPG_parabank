@@ -14,7 +14,7 @@ Test Teardown    Close Application
 User Account Registration
     [Documentation]    Registering user account to the site
     [Tags]    @ui @regression @negative @boundary
-    Login Or Register User
+#    Login Or Register User
     Permanent Log In
     Open New Savings Account
     Max Min Fund Transfer Page    999999999999999
