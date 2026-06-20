@@ -2,6 +2,7 @@
 Library    SeleniumLibrary
 Resource    ../../resources/keywords/api_keywords.robot
 Resource    ../../resources/keywords/common_keywords.robot
+Resource    ../../resources/pages/AccountOverviewPage.robot
 
 Suite Setup    Load Environment
 Test Setup    Open Application
@@ -11,5 +12,6 @@ Test Teardown    Close Application
 Retrieve Customer details
     [Documentation]    Retrieve details using customer ID
     [Tags]    @api @regression
+    Login User or Register
     Login Response Time Validation
     Log To Console    Login response time is within acceptable limits
