@@ -11,5 +11,5 @@ Test Teardown    Close Application
 User Account Registration
     [Documentation]    Registering user account to the site
     [Tags]    @ui @regression @smoke
-    Register With Assertion    ramsita    bbq123    bbq123
+    Register With Assertion    johnybaba    bbq123    bbq123
     Sleep    3s
