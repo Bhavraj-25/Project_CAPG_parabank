@@ -16,10 +16,8 @@ pipeline {
         TESTS_DIR    = "tests"
         ALLURE_RESULTS = "output\\allure-results"
         ALLURE_REPORT  = "output\\allure-report"
-        // Override PYTHON_EXE in Jenkins "Global properties" if Python is not on PATH
-        // e.g. PYTHON_EXE = C:\Python312\python.exe
-        // Leave blank to auto-detect via 'py' launcher or 'python' command.
-        PYTHON_EXE   = ""
+        // Full path to Python 3.12 for user BHAVRAJ SAIREM on the Jenkins agent machine
+        PYTHON_EXE   = "C:\\Users\\BHAVRAJ SAIREM\\AppData\\Local\\Programs\\Python\\Python312\\python.exe"
     }
 
     stages {
@@ -66,34 +64,21 @@ pipeline {
                     @echo off
                     setlocal EnableDelayedExpansion
 
-                    rem ---- Resolve Python executable ----
-                    rem Priority: 1) PYTHON_EXE env var (set in Jenkins Global Properties)
-                    rem           2) 'py' Windows launcher
-                    rem           3) 'python' command on PATH
-                    set _PY=%PYTHON_EXE%
-                    if "!_PY!"=="" (
-                        where py >nul 2>nul
-                        if not errorlevel 1 (
-                            set _PY=py
-                        ) else (
-                            where python >nul 2>nul
-                            if not errorlevel 1 (
-                                set _PY=python
-                            ) else (
-                                echo ERROR: Python not found. Set PYTHON_EXE in Jenkins Global Properties
-                                echo        e.g. PYTHON_EXE=C:\Python312\python.exe
-                                exit /b 1
-                            )
-                        )
-                    )
+                    rem ---- Use hardcoded Python 3.12 path for user BHAVRAJ SAIREM ----
+                    set "_PY=%PYTHON_EXE%"
                     echo Using Python: !_PY!
-                    !_PY! --version
+                    "!_PY!" --version
+                    if errorlevel 1 (
+                        echo ERROR: Python not found at !_PY!
+                        echo        Verify the PYTHON_EXE path in the Jenkinsfile environment block.
+                        exit /b 1
+                    )
 
                     set "VENV_PY=%WORKSPACE%\%VENV_DIR%\Scripts\python.exe"
 
                     if exist "%VENV_DIR%" (
                         echo Virtual environment folder found. Verifying integrity...
-                        if not exist "%VENV_PY%" (
+                        if not exist "!VENV_PY!" (
                             echo Virtual environment appears corrupted. Recreating...
                             rmdir /s /q "%VENV_DIR%"
                         )
@@ -101,10 +86,9 @@ pipeline {
 
                     if not exist "%VENV_DIR%" (
                         echo Creating new virtual environment...
-                        !_PY! -m venv "%VENV_DIR%"
+                        "!_PY!" -m venv "%VENV_DIR%"
                         if errorlevel 1 (
-                            echo ERROR: Failed to create virtual environment.
-                            echo        Is Python installed? Current Python: !_PY!
+                            echo ERROR: Failed to create virtual environment using !_PY!
                             exit /b 1
                         )
                     ) else (
