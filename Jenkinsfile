@@ -16,6 +16,10 @@ pipeline {
         TESTS_DIR    = "tests"
         ALLURE_RESULTS = "output\\allure-results"
         ALLURE_REPORT  = "output\\allure-report"
+        // Override PYTHON_EXE in Jenkins "Global properties" if Python is not on PATH
+        // e.g. PYTHON_EXE = C:\Python312\python.exe
+        // Leave blank to auto-detect via 'py' launcher or 'python' command.
+        PYTHON_EXE   = ""
     }
 
     stages {
@@ -60,11 +64,36 @@ pipeline {
                 echo "==== Setting up Python virtual environment ===="
                 bat """
                     @echo off
-                    set VENV_PY="%WORKSPACE%\\%VENV_DIR%\\Scripts\\python.exe"
+                    setlocal EnableDelayedExpansion
+
+                    rem ---- Resolve Python executable ----
+                    rem Priority: 1) PYTHON_EXE env var (set in Jenkins Global Properties)
+                    rem           2) 'py' Windows launcher
+                    rem           3) 'python' command on PATH
+                    set _PY=%PYTHON_EXE%
+                    if "!_PY!"=="" (
+                        where py >nul 2>nul
+                        if not errorlevel 1 (
+                            set _PY=py
+                        ) else (
+                            where python >nul 2>nul
+                            if not errorlevel 1 (
+                                set _PY=python
+                            ) else (
+                                echo ERROR: Python not found. Set PYTHON_EXE in Jenkins Global Properties
+                                echo        e.g. PYTHON_EXE=C:\Python312\python.exe
+                                exit /b 1
+                            )
+                        )
+                    )
+                    echo Using Python: !_PY!
+                    !_PY! --version
+
+                    set "VENV_PY=%WORKSPACE%\%VENV_DIR%\Scripts\python.exe"
 
                     if exist "%VENV_DIR%" (
                         echo Virtual environment folder found. Verifying integrity...
-                        if not exist %VENV_PY% (
+                        if not exist "%VENV_PY%" (
                             echo Virtual environment appears corrupted. Recreating...
                             rmdir /s /q "%VENV_DIR%"
                         )
@@ -72,9 +101,10 @@ pipeline {
 
                     if not exist "%VENV_DIR%" (
                         echo Creating new virtual environment...
-                        python -m venv "%VENV_DIR%"
+                        !_PY! -m venv "%VENV_DIR%"
                         if errorlevel 1 (
-                            echo ERROR: Failed to create virtual environment. Is Python installed and on PATH?
+                            echo ERROR: Failed to create virtual environment.
+                            echo        Is Python installed? Current Python: !_PY!
                             exit /b 1
                         )
                     ) else (
@@ -274,8 +304,10 @@ pipeline {
             // Clean only transient cache/temp files; never remove the venv or output reports
             bat """
                 @echo off
+                setlocal EnableDelayedExpansion
                 echo Cleaning up temporary pycache files (preserving venv and output)...
-                for /d /r %WORKSPACE% %%d in (__pycache__) do (
+                set "WS=%WORKSPACE%"
+                for /d /r "!WS!" %%d in (__pycache__) do (
                     if exist "%%d" rmdir /s /q "%%d"
                 )
                 echo Cleanup complete.
