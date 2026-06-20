@@ -1,9 +1,11 @@
 *** Settings ***
 Library    SeleniumLibrary
 Resource    ../../../resources/keywords/common_keywords.robot
-#Resource    ../../../resources/pages/LoginPage.robot
+Resource    ../../../resources/pages/LoginPage.robot
 Resource    ../../../resources/pages/TransferFundPage.robot
 Resource    ../../../resources/pages/AccountOverviewPage.robot
+Resource    ../../../resources/pages/OpenAccountPage.robot
+
 
 Suite Setup    Load Environment
 Test Setup    Open Application
@@ -16,6 +18,8 @@ User Account Registration
 #    Login Or Register User
 #    Sleep    2s
     Permanent Log In
+    Sleep    2s
+    Open New Savings Account
     Sleep    2s
     Diff Fund Transfer Page    10000
     Sleep    2s

@@ -36,6 +36,7 @@ Invalid Fund Transfer Page
     Wait Until Element Is Visible    ${assert_transfer_funds}    10s
     Input Text    ${amount}    ${to_send}
     Click Element    ${to_account}
+    Wait Until Page Contains Element    xpath=//select[@id='toAccountId']/option[2]    15s
     Click Element    xpath=//select[@id='toAccountId']/option[2]
     Wait Until Element Is Visible    ${transfer_btn}    10s
     Click Element    ${transfer_btn}
