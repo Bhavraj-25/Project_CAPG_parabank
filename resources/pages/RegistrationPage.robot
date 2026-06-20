@@ -72,6 +72,7 @@ Register with assertion
     Input Text    ${reg_confirm_password}   ${confirm_pwd}
     Click Element    ${register_btn}
     Page Should Contain Element    xpath=//div[@id='rightPanel']
+    Wait Until Page Contains Element    xpath=//p[contains(text(), 'Your account was created successfully. You are now logged in.')]    10s
     Page Should Contain Element    xpath=//p[contains(text(), 'Your account was created successfully. You are now logged in.')]
     Log To Console    Registration successful!
 
