@@ -13,8 +13,8 @@ Test Teardown    Close Application
 User Account Registration
     [Documentation]    Registering user account to the site
     [Tags]    @ui @regression
-    Login Or Register User
-    Sleep    2s
+#    Login Or Register User
+#    Sleep    2s
     Permanent Log In
     Sleep    2s
     Diff Fund Transfer Page    10000

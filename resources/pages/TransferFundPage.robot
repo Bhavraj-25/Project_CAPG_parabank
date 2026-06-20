@@ -10,10 +10,11 @@ Fund Transfer Page
     Wait Until Element Is Visible    ${assert_transfer_funds}    10s
     Input Text    ${amount}    ${to_send}
     Click Element    ${to_account}
-    Wait Until Element Is Visible    xpath=//select[@id='toAccountId']/option[2]    10s
+    Wait Until Element Is Visible    xpath=//select[@id='toAccountId']/option[2]    15s
     Click Element    xpath=//select[@id='toAccountId']/option[2]
     Wait Until Element Is Visible    ${transfer_btn}    10s
     Click Element    ${transfer_btn}
+    Wait Until Element Is Visible    ${assert_transfer_success}    15s
     Page Should Contain Element    ${assert_transfer_success}
 
 Diff Fund Transfer Page

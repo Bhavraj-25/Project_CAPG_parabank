@@ -9,11 +9,13 @@ Test Setup    Open Application
 Test Teardown    Close Application
 
 *** Test Cases ***
-User Account Registration
-    [Documentation]    Registering user account to the site
-    [Tags]    @ui @regression
+Defect - Negative Amount Transfer Accepted
+    [Documentation]    DEFECT: ParaBank accepts negative transfer amounts (-100) and shows
+    ...                "Transfer Complete!" instead of rejecting the input.
+    ...                This test documents the bug — a negative amount should be rejected.
+    [Tags]    @ui @negative @defect @regression
     Permanent Log In
     Sleep    2s
     Fund Transfer Page    -100
     Sleep    2s
-    Log To Console    Minimum fund transfer successful
+    Log To Console    DEFECT CONFIRMED: Negative amount -100 was accepted by ParaBank
