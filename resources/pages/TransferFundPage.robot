@@ -45,6 +45,20 @@ Invalid Fund Transfer Page
     Wait Until Element Is Visible    xpath=//div[@id='rightPanel']    10s
     Page Should Contain Element    xpath=(//p[@class='error'])[3]
 
+Invalid Account Transfer Page
+    [Documentation]    Navigating to the fund transfer page
+    [Arguments]    ${to_send}
+    Click Element    ${transfer_funds_btn}
+    Wait Until Element Is Visible    ${assert_transfer_funds}    10s
+    Input Text    ${amount}    ${to_send}
+    Click Element    ${to_account}
+    Wait Until Page Contains Element    xpath=//select[@id='toAccountId']/option[5]    15s
+    Click Element    xpath=//select[@id='toAccountId']/option[5]
+    Wait Until Element Is Visible    ${transfer_btn}    10s
+    Click Element    ${transfer_btn}
+    Wait Until Element Is Visible    xpath=//div[@id='rightPanel']    10s
+    Page Should Contain Element    xpath=(//p[@class='error'])[3]
+
 Max Min Fund Transfer Page
     [Documentation]    Navigating to the fund transfer page
     [Arguments]    ${to_send}
