@@ -17,6 +17,7 @@ User Account Registration
 #    Login Or Register User
     Permanent Log In
     Open New Savings Account
+    Sleep    1s
     Max Min Fund Transfer Page    999999999999999
     Sleep    1s
     Log To Console    Max fund transfer successful to a different account
