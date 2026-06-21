@@ -3,6 +3,7 @@ Library    SeleniumLibrary
 Resource    ../../../resources/keywords/common_keywords.robot
 Resource    ../../../resources/pages/LoginPage.robot
 Resource    ../../../resources/pages/TransferFundPage.robot
+Resource    ../../../resources/pages/OpenAccountPage.robot
 
 Suite Setup    Load Environment
 Test Setup    Open Application
@@ -15,6 +16,8 @@ Defect - Negative Amount Transfer Accepted
     ...                This test documents the bug — a negative amount should be rejected.
     [Tags]    @ui @negative @defect @regression
     Permanent Log In
+    Sleep    2s
+    Open New Savings Account
     Sleep    2s
     Fund Transfer Page    -100
     Sleep    2s
